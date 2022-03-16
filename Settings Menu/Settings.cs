@@ -5,17 +5,19 @@ using System.IO;
 
 namespace FF_UI
 {
+    [System.Serializable]
     public struct GameSettings
     {
         //Attributes:
-        public bool vibration, mute, censored;
+        public bool vibration, censored;
         public float volume;
         private const string file_name = "saved_settings.JSON";
+        private static GameSettings default_instance;
 
         //Constructor:
         public GameSettings(float volume)
         {
-            vibration = false; mute = false; censored = false;
+            vibration = false; censored = false;
             this.volume = volume;
         }
 
@@ -45,10 +47,11 @@ namespace FF_UI
         public static GameSettings GetDefault()
         {
             GameSettings settings = new GameSettings(100.0f);
-            settings.mute = false;
             settings.vibration = true;
             settings.censored = false;
             return settings;
         }
+
+        public GameSettings GetInstance() { return default_instance; }
     }
 }
