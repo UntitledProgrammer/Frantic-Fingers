@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class Word : MonoBehaviour
 {
@@ -16,13 +17,21 @@ public class Word : MonoBehaviour
     //Methods:
     private void Start()
     {
+
+    }
+
+    public void CreateListeners(int length)
+    {
         //Initialise list of elements & initialise listeners.
         elements = new List<Listener>();
-        for(int i =0; i < length; i++)
+        elements.Clear();
+
+        //Add listeners.
+        for (int i = 0; i < length; i++)
         {
             Listener letter_listener = GameObject.Instantiate(template_listener).AddComponent<Listener>();
             letter_listener.gameObject.transform.position += transform.position + spacing * i;
-            letter_listener.gameObject.name = "ListenerObject_"+i;
+            letter_listener.gameObject.name = "ListenerObject_" + i;
             letter_listener.payload_tag = listener_tag;
             letter_listener.gameObject.transform.SetParent(FindObjectOfType<Canvas>().transform);
             elements.Add(letter_listener);
@@ -58,5 +67,38 @@ public class Word : MonoBehaviour
     public void DebugWord()
     {
         Debug.Log("Word: " + GetString());
+    }
+}
+
+[CustomEditor(typeof(Word))]
+public class WordEditor : Editor
+{
+    //Attributes:
+    private const int min = 0, max = 10;
+    private int number_of_listeners = 0;
+    private Word self;
+
+    //Methods:
+    public void OnEnable()
+    {
+        //Set reference to instance of the object this class is editing.
+        self = (Word)target;
+    }
+
+    public override void OnInspectorGUI()
+    {
+        number_of_listeners = EditorGUILayout.IntSlider(number_of_listeners, min, max);
+
+        if(GUILayout.Button("Create Listeners"))
+        {
+            self.CreateListeners(number_of_listeners);
+        }
+
+        if(GUILayout.Button("Destroy Listeners"))
+        {
+            //Implement.
+        }
+
+        DrawDefaultInspector();
     }
 }

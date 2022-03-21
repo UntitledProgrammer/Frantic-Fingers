@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The letter class is a light weight component.
+/// </summary>
 public class Letter : MonoBehaviour
 {
     //Attributes:
@@ -10,6 +13,7 @@ public class Letter : MonoBehaviour
     private const int left_mouse_button = 0; 
 
     //Methods:
+    /*
     private void Update()
     {
         hit = Physics2D.Raycast(Input.mousePosition, Vector3.forward, Mathf.Infinity);
@@ -18,4 +22,5 @@ public class Letter : MonoBehaviour
             transform.position = Input.mousePosition;
         }
     }
+    */
 }
