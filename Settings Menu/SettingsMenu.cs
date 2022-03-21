@@ -35,6 +35,11 @@ namespace FF_UI
             settings.censored = !settings.censored;
         }
 
+        public void ToggleBool(bool reference)
+        {
+
+        }
+
         public void SetFloat(ref float reference, float value)
         {
             reference = value;
