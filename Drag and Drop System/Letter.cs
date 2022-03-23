@@ -20,7 +20,7 @@ public class Letter : MonoBehaviour
     //Components:
     public Text text_box;
     private BoxCollider2D box_collider;
-    private Rigidbody2D
+    private Rigidbody2D body2D;
 
     //Methods:
     public void BuildLetter()
@@ -34,6 +34,10 @@ public class Letter : MonoBehaviour
         //Create and setup box-collider.
         box_collider = gameObject.AddComponent<BoxCollider2D>();
         SetColliderSize(size);
+
+        //Create and setup rigid-body.
+        body2D = gameObject.AddComponent<Rigidbody2D>();
+        body2D.freezeRotation = true;
     }
 
     public void DestroyLetter()
