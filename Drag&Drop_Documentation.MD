@@ -21,16 +21,3 @@
 
 >**The 'word' class**
 >The word class is the overall program that keeps reference to what characters a player has used as well as each characters order. It does this by keep an array of listeners where it can have access to any characters the listeners may be keeping reference to.
-
-```gfm
-```flow
-st=>start: Start
-op=>operation: Your Operation
-cond=>condition: Yes or No?
-e=>end
-
-st->op->cond
-cond(yes)->e
-cond(no)->op
-​```
-```
