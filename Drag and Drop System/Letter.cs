@@ -16,6 +16,7 @@ public class Letter : MonoBehaviour
     private const TextAnchor anchor = TextAnchor.MiddleCenter;
     private const char default_character = '-';
     private const int default_size = 50;
+    private const float gravity = 0.0f;
 
     //Components:
     public Text text_box;
@@ -38,6 +39,7 @@ public class Letter : MonoBehaviour
         //Create and setup rigid-body.
         body2D = gameObject.AddComponent<Rigidbody2D>();
         body2D.freezeRotation = true;
+        body2D.gravityScale = gravity;
     }
 
     public void DestroyLetter()
