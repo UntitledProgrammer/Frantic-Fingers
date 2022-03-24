@@ -11,11 +11,11 @@ public class Letter : MonoBehaviour
     public char character = default_character;
     [HideInInspector]
     public int size = default_size;
+    public const int default_size = 50;
 
     private RaycastHit2D hit;
     private const TextAnchor anchor = TextAnchor.MiddleCenter;
     private const char default_character = '-';
-    private const int default_size = 50;
     private const float gravity = 0.0f;
 
     //Components:
@@ -48,13 +48,14 @@ public class Letter : MonoBehaviour
         Destroy(text_box);
     }
     [MenuItem("GameObject/UI/Create Letter", priority = 0)]
-    static public void CreateLetter()
+    static public Letter Create()
     {
         Canvas canvas = FindObjectOfType<Canvas>();
         Letter letter = new GameObject("Letter").AddComponent<Letter>();
         letter.gameObject.transform.SetParent(canvas.transform);
         letter.gameObject.transform.position = canvas.transform.position;
         letter.BuildLetter();
+        return letter;
     }
 
     public void SetColliderSize(int scale)
