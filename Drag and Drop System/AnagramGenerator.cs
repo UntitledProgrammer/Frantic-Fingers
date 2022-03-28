@@ -24,11 +24,11 @@ namespace FranticFingers.Mechanics
         private Word word;
 
         //Methods:
-        public void GenerateLetters()
+        public void GenerateLetters(string tag = "Untagged")
         {
             //Initalise & assign each letter:
             letters = new Letter[(int)difficulty];
-            for(int i = 0; i < letters.Length; i++) { letters[i] = Letter.Create(); letters[i].transform.position = transform.position + Vector3.left * Letter.default_size * i; }
+            for(int i = 0; i < letters.Length; i++) { letters[i] = Letter.Create(); letters[i].transform.position = transform.position + Vector3.left * Letter.default_size * i; letters[i].tag = tag; }
         }
 
         //Base Methods:
@@ -49,12 +49,14 @@ namespace FranticFingers.Mechanics
         //Attributes:
         private AnagramGenerator self;
         private const int seperation = 25;
+        private string tag;
 
         //Base methods:
         public override void OnInspectorGUI()
         {
             EditorGUILayout.LabelField("Developer Settings");
-            if (GUILayout.Button("Auto Assign Letters")) self.GenerateLetters();
+            tag = EditorGUILayout.TagField(tag);
+            if (GUILayout.Button("Auto Assign Letters")) self.GenerateLetters(tag);
             else if (GUILayout.Button("Clear Letters")) { }
 
             EditorGUILayout.Space(seperation);

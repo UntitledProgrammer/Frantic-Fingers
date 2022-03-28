@@ -20,7 +20,7 @@ public class Word : MonoBehaviour
 
     }
 
-    public void CreateListeners(int length)
+    public void CreateListeners(int length, string tag = listener_tag)
     {
         //Initialise list of elements & initialise listeners.
         elements = new List<Listener>();
@@ -32,7 +32,7 @@ public class Word : MonoBehaviour
             Listener letter_listener = GameObject.Instantiate(template_listener).AddComponent<Listener>();
             letter_listener.gameObject.transform.position += transform.position + spacing * i;
             letter_listener.gameObject.name = "ListenerObject_" + i;
-            letter_listener.payload_tag = listener_tag;
+            letter_listener.payload_tag = tag;
             letter_listener.gameObject.transform.SetParent(FindObjectOfType<Canvas>().transform);
             elements.Add(letter_listener);
         }
@@ -77,6 +77,7 @@ public class WordEditor : Editor
     private const int min = 0, max = 10;
     private int number_of_listeners = 0;
     private Word self;
+    private string editor_tag = "";
 
     //Methods:
     public void OnEnable()
@@ -87,11 +88,12 @@ public class WordEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        EditorGUILayout.LabelField("Developer Settings");
         number_of_listeners = EditorGUILayout.IntSlider(number_of_listeners, min, max);
-
+        editor_tag = EditorGUILayout.TagField(editor_tag);
         if(GUILayout.Button("Create Listeners"))
         {
-            self.CreateListeners(number_of_listeners);
+            self.CreateListeners(number_of_listeners, editor_tag);
         }
 
         if(GUILayout.Button("Destroy Listeners"))
@@ -99,6 +101,7 @@ public class WordEditor : Editor
             //Implement.
         }
 
+        EditorGUILayout.LabelField("Main Settings");
         DrawDefaultInspector();
     }
 }
